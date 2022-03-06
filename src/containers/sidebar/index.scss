@@ -1,0 +1,30 @@
+.sidebar {
+  width: 100px;
+  min-width: 100px;
+  height: 100%;
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.048);
+
+  .sidebar-item {
+    text-decoration: none;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(58,53,78,.45);
+
+    .sidebar-item__text {
+      font-size: 12px;
+    }
+
+    .sidebar-item__icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    &.is-selected,
+    &:hover {
+      color: #0e0e0f;
+    }
+  }
+}

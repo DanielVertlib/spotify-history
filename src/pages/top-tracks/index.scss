@@ -1,0 +1,41 @@
+.tracks-page {
+  width: 100%;
+  padding: 0 300px;
+  overflow-y: scroll;
+  background-color: #e2e2e2;
+
+  .list {
+    background-color: #FFFFFF;
+    padding: 65px 0;
+  }
+}
+
+.tracks-page__divider {
+  transform: translateZ(0) skewY(-3deg);
+  width: 100%;
+  bottom: -3vh;
+  background-color: #FFFFFF;
+  height: 6vw;
+  position: absolute;
+}
+
+.tracks-image {
+  max-width: 100%;
+}
+
+.tracks-header {
+  align-items: center;
+  position: relative;
+  height: 45vh;
+  overflow: hidden;
+  display: flex;
+}
+
+.tracks-header__text {
+  color: #FFFFFF;
+  bottom: 32px;
+  left: 32px;
+  position: absolute;
+  font-size: 42px;
+  font-weight: 700;
+}
