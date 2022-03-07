@@ -2,11 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import Sidebar from 'containers/sidebar'
+import PlaylistFooter from 'containers/playlist-footer'
 import Card from 'components/card'
+
+import * as ApplicationActions from 'actions/application'
 
 import './index.scss'
 
-const TopArtistsPage = ({ artists }) => {
+const TopArtistsPage = ({ artists, dispatch }) => {
   const getAlbumCover = (artist) => {
     const cover = artist.images.find(image => image.url).url
     return cover
@@ -15,6 +18,10 @@ const TopArtistsPage = ({ artists }) => {
   const getGenres = (artist) => {
     const genres = artist.genres.slice(0, 5)
     return genres.join(', ')
+  }
+  const getTopArtistsUris = () => {
+    dispatch(ApplicationActions.getArtistsSongsUris('Top 20 Artists Playlist'))
+    // dispatch(ApplicationActions.createPlaylist('Top 50 Most Played Tracks', []))
   }
   console.log(artists)
   return (
@@ -36,6 +43,10 @@ const TopArtistsPage = ({ artists }) => {
               subtitle={getGenres(artist)}
               href={artist.uri} />
           )}
+          <PlaylistFooter
+            title="Create Top Artists playlist"
+            subtitle="This creates a playlist from your top 20 artists with the top 5 tracks of each artist"
+            onClick={() => getTopArtistsUris()} />
         </div>
       </div>
     </div>

@@ -28,6 +28,7 @@ const clientId = 'f6fb11fc92c64dc491d0bd2b5473ae12'
 const redirectUri = 'http://localhost:3000'
 const scopes = [
   'user-top-read',
+  'user-read-private',
   'user-read-recently-played',
   'playlist-modify-private',
   'playlist-read-collaborative',

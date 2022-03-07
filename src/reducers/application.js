@@ -5,7 +5,7 @@ const initialState = {
   tracks: [],
   recent: [],
   token: null,
-  userId: null
+  user: null
 }
 
 export default function application(state = initialState, action) {
@@ -17,7 +17,7 @@ export default function application(state = initialState, action) {
       })
     case constants.GET_USER:
       return Object.assign({}, state, {
-        userId: action.userId
+        user: action.user
       })
 
     case constants.SET_TOP_ARTISTS:

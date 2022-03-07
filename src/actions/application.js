@@ -29,7 +29,7 @@ function getUser(fetchSettings) {
       (result) => {
         dispatch({
           type: constants.GET_USER,
-          userId: result.id
+          user: result
         })
       },
       (error) => {
@@ -56,6 +56,36 @@ function getTopArtists(fetchSettings, limit = 50, timeRange = 'long_term') {
       )
   }
 }
+
+export function getArtistsSongsUris(name) {
+  let artistUris = []
+  return (dispatch, state) => {
+    const { artists, user, token } = state().application
+    const getReq = {
+      method: 'GET',
+      headers: { 'Authorization': `Bearer ${token}` },
+    }
+    
+    artists.splice(0, 20).forEach((artist, index) => {
+      fetch(`https://api.spotify.com/v1/artists/${artist.id}/top-tracks?market=${user.country}`, getReq)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          const uris = result.tracks.splice(0, 5).map(track => track.uri)
+          artistUris = artistUris.concat(uris)
+        },
+        (error) => {
+          console.log('ERROR = ', error)
+        }
+      )
+      .then(() => {
+        if(index === 19) dispatch(createPlaylist(name, artistUris))
+      })
+    })
+   console.log('test', artistUris) 
+  }
+}
+
 
 function getTopTracks(fetchSettings, limit = 50, timeRange = 'long_term') {
   return dispatch => {
@@ -95,7 +125,7 @@ function getRecentTracks(fetchSettings, limit = 50) {
 
 export function createPlaylist(name, songURIs) {
   return (dispatch, state) => {
-    const { userId, token } = state().application
+    const { user, token } = state().application
     const postReq = {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${token}` },
@@ -105,7 +135,7 @@ export function createPlaylist(name, songURIs) {
         public: false
       })
     }
-    fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, postReq)
+    fetch(`https://api.spotify.com/v1/users/${user.id}/playlists`, postReq)
     .then(res => res.json())
     .then(
       (result) => {
