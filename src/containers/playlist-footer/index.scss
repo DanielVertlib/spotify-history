@@ -1,0 +1,47 @@
+.playlist-footer {
+  box-shadow: 0 -3px 6px rgb(0 0 0 / 2%);
+  display: flex;
+  height: 100px;
+  background-color: #FFFFFF;
+  font-family: Rubik,sans-serif;
+
+  .playlist-button {
+    background-color: #50496d;
+    border-color: #50496d;
+    border-radius: 50px;
+    display: flex;
+    width: 200px;
+    align-items: center;
+    height: 50px;
+    margin: auto;
+    margin-right: 32px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #494364;
+      border-color: #494364;
+    }
+
+    .playlist-button__text {
+      font-family: Rubik,sans-serif;
+      font-weight: 700;
+      margin: auto;
+      color: #FFFFFF;
+      user-select: none;
+    }
+  }
+  .playlist-text {
+    display: flex;
+    flex-direction: column;
+    margin-left: 32px;
+
+    .playlist-title {
+      color: #50496d;
+      font-weight: 700;
+      margin: auto 0 8px 0;
+    }
+    .playlist-subtitle {
+      margin-bottom: auto;
+    }
+  }
+}

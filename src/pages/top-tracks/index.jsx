@@ -2,11 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import Sidebar from 'containers/sidebar'
+import PlaylistFooter from 'containers/playlist-footer'
 import Card from 'components/card'
+
+import * as ApplicationActions from 'actions/application'
 
 import './index.scss'
 
-const TopTracksPage = ({ tracks }) => {
+const TopTracksPage = ({ tracks, dispatch }) => {
   const getAlbumCover = (album) => {
     const cover = album.images.find(image => image.url).url
     return cover
@@ -19,6 +22,9 @@ const TopTracksPage = ({ tracks }) => {
     })
     return artistNames.join(', ')
   }
+
+  const uris = tracks.map(track => track.uri)
+
   return (
     <div className="authenticated-page">
       <Sidebar />
@@ -37,6 +43,11 @@ const TopTracksPage = ({ tracks }) => {
               subtitle={getArtists(track.artists)}
               href={track.uri} />
           )}
+          <PlaylistFooter
+            title="Create Most Played Tracks playlist"
+            subtitle="This will create a playlist with your 50 most played tracks"
+            onClick={() =>
+              dispatch(ApplicationActions.createPlaylist('Top 50 Most Played Tracks', uris))} />
         </div>
       </div>
     </div>

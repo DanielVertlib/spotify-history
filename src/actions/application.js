@@ -92,3 +92,51 @@ function getRecentTracks(fetchSettings, limit = 50) {
     )
   }
 }
+
+export function createPlaylist(name, songURIs) {
+  return (dispatch, state) => {
+    const { userId, token } = state().application
+    const postReq = {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({
+        name,
+        description: `${name} created from spotify songs app`,
+        public: false
+      })
+    }
+    fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, postReq)
+    .then(res => res.json())
+    .then(
+      (result) => {
+        dispatch(addSongsToPlaylist(result.id, songURIs))
+      },
+      (error) => {
+        console.log('ERROR = ', error)
+      }
+    )
+  }
+}
+
+export function addSongsToPlaylist(playlistId, songURIs) {
+  return (dispatch, state) => {
+    const { token } = state().application
+    const postReq = {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({
+        uris: songURIs
+      })
+    }
+    fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, postReq)
+    .then(res => res.json())
+    .then(
+      (result) => {
+        console.log('add songs', result)
+      },
+      (error) => {
+        console.log('ERROR = ', error)
+      }
+    )
+  }
+}

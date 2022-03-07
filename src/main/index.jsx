@@ -14,13 +14,9 @@ import {
 
 import { ProvideAuth, useAuth } from "hooks/use-auth.js";
 
-
-import Menu from 'containers/menu'
-import MainPage from 'pages/main'
 import RecentPage from 'pages/recent'
 import TopArtistsPage from 'pages/top-artists'
 import TopTracksPage from 'pages/top-tracks'
-import Sidebar from 'containers/sidebar'
 
 
 import './index.scss'
@@ -32,7 +28,11 @@ const clientId = 'f6fb11fc92c64dc491d0bd2b5473ae12'
 const redirectUri = 'http://localhost:3000'
 const scopes = [
   'user-top-read',
-  'user-read-recently-played'
+  'user-read-recently-played',
+  'playlist-modify-private',
+  'playlist-read-collaborative',
+  'playlist-read-private',
+  'playlist-modify-public'
 ]
 
 const hash = window.location.hash

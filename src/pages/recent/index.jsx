@@ -2,14 +2,16 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import Sidebar from 'containers/sidebar'
+import PlaylistFooter from 'containers/playlist-footer'
 import Card from 'components/card'
+
+import * as ApplicationActions from 'actions/application'
 
 import moment from 'moment'
 
 import './index.scss'
-import { getActiveElement } from '@testing-library/user-event/dist/utils'
 
-const RecentPage = ({ recent }) => {
+const RecentPage = ({ recent, dispatch }) => {
   // let history = useHistory();
   // let location = useLocation();
   const getAlbumCover = (track) => {
@@ -28,7 +30,8 @@ const RecentPage = ({ recent }) => {
   const getTimePlayed = (time) => {
     return moment.utc(time).format("ddd hh:mm A")
   }
-  console.log(recent)
+  
+  const uris = recent.map(recent => recent.track.uri)
   return (
     <div className="authenticated-page">
       <Sidebar />
@@ -49,6 +52,11 @@ const RecentPage = ({ recent }) => {
               href={recent.track.uri} />
           )}
         </div>
+        <PlaylistFooter
+          title="Create Recently Played playlist"
+          subtitle="This will create a playlist with your 50 recently played tracks"
+          onClick={() =>
+            dispatch(ApplicationActions.createPlaylist('50 recently played tracks', uris))} />
       </div>
     </div>
   )
