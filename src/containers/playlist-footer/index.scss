@@ -1,9 +1,12 @@
 .playlist-footer {
-  box-shadow: 0 -3px 6px rgb(0 0 0 / 2%);
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   display: flex;
   height: 100px;
   background-color: #FFFFFF;
   font-family: Rubik,sans-serif;
+  position: fixed;
+  width: 1000px;
+  bottom: 0;
 
   .playlist-button {
     background-color: #50496d;

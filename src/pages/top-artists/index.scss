@@ -1,12 +1,14 @@
 .artists-page {
   width: 100%;
-  padding: 0 300px;
-  overflow-y: scroll;
   background-color: #e2e2e2;
+  overflow-y: scroll;
 
   .list {
     background-color: #FFFFFF;
-    padding: 65px 0;
+    padding-bottom: 100px;
+    width: 1000px;
+    margin: auto;
+    padding-top: 16px;
   }
 }
 
@@ -30,6 +32,8 @@
   height: 45vh;
   overflow: hidden;
   display: flex;
+  width: 1000px;
+  margin: auto
 }
 
 .artists-header__text {

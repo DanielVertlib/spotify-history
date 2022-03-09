@@ -37,7 +37,7 @@ const RecentPage = ({ recent, dispatch }) => {
       <Sidebar />
       <div className="recent-page">
         <div className="recent-header">
-          <img className="recent-image" src="/recent-music.jpg" />
+          <img className="recent-image" src="assets/recent-music.jpg" />
           <span className="recent-header__text">Recently Played</span>
         </div>
         {/* <div className="recent-page__divider" /> */}
@@ -51,12 +51,12 @@ const RecentPage = ({ recent, dispatch }) => {
               time={getTimePlayed(recent.played_at)}
               href={recent.track.uri} />
           )}
+          <PlaylistFooter
+            title="Create Recently Played playlist"
+            subtitle="This will create a playlist with your 50 recently played tracks"
+            onClick={() =>
+              dispatch(ApplicationActions.createPlaylist('50 recently played tracks', uris))} />
         </div>
-        <PlaylistFooter
-          title="Create Recently Played playlist"
-          subtitle="This will create a playlist with your 50 recently played tracks"
-          onClick={() =>
-            dispatch(ApplicationActions.createPlaylist('50 recently played tracks', uris))} />
       </div>
     </div>
   )

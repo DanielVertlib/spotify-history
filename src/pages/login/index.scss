@@ -1,0 +1,35 @@
+.login-page {
+  height: 100vh;
+  display: flex;
+  background-size: 100%;
+
+  .login-page__button {
+    top: 95%;
+    transform: translateY(-50%);
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    background-color: #FFFFFF;
+    border-color: #FFFFFF;
+    border-radius: 50px;
+    display: flex;
+    width: 400px;
+    align-items: center;
+    height: 80px;
+    cursor: pointer;
+    display: flex;
+    box-shadow: 0 12px 22px rgb(0 0 0 / 13%);
+
+    .login-page__text {
+      font-family: Rubik,sans-serif;
+      text-align: center;
+      color: #a467a8;
+      font-weight: 700;
+      font-size: 24px;
+      margin: auto;
+    }
+  }
+}

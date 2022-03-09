@@ -45,6 +45,7 @@ function getTopArtists(fetchSettings, limit = 50, timeRange = 'long_term') {
       .then(res => res.json())
       .then(
         (result) => {
+          console.log(result)
           dispatch({
             type: constants.SET_TOP_ARTISTS,
             artists: result.items
@@ -65,8 +66,10 @@ export function getArtistsSongsUris(name) {
       method: 'GET',
       headers: { 'Authorization': `Bearer ${token}` },
     }
+
+    const artistsObject = Object.assign([], artists)
     
-    artists.splice(0, 20).forEach((artist, index) => {
+    artistsObject.splice(0, 20).forEach((artist, index) => {
       fetch(`https://api.spotify.com/v1/artists/${artist.id}/top-tracks?market=${user.country}`, getReq)
       .then(res => res.json())
       .then(

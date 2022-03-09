@@ -7,13 +7,10 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
-  useHistory,
-  useLocation
-} from "react-router-dom";
+  Redirect
+} from "react-router-dom"
 
-import { ProvideAuth, useAuth } from "hooks/use-auth.js";
-
+import LoginPage from 'pages/login'
 import RecentPage from 'pages/recent'
 import TopArtistsPage from 'pages/top-artists'
 import TopTracksPage from 'pages/top-tracks'
@@ -21,20 +18,9 @@ import TopTracksPage from 'pages/top-tracks'
 
 import './index.scss'
 
-export const authEndpoint = 'https://accounts.spotify.com/authorize'
-
 // App's client ID, redirect URI and desired scopes
-const clientId = 'f6fb11fc92c64dc491d0bd2b5473ae12'
-const redirectUri = 'http://localhost:3000'
-const scopes = [
-  'user-top-read',
-  'user-read-private',
-  'user-read-recently-played',
-  'playlist-modify-private',
-  'playlist-read-collaborative',
-  'playlist-read-private',
-  'playlist-modify-public'
-]
+
+
 
 const hash = window.location.hash
   .substring(1)
@@ -48,19 +34,6 @@ const hash = window.location.hash
   }, {})
 
 window.location.hash = ''
-
-const LoginPage = () => {
-  let login = () => {
-    const authLink = `${authEndpoint}?client_id=${clientId}&scope=${scopes.join("%20")}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true`
-    window.location.replace(authLink)
-  }
-
-  return (
-    <div className="login-page">
-      <button onClick={login}>Log in</button>
-    </div>
-  );
-}
 
 function PrivateRoute({ children, ...rest }) {
   return (
@@ -92,27 +65,25 @@ const App = ({ token, dispatch }) => {
   }, [])
 
   return (
-    <ProvideAuth>
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <Redirect to="/top-artists" />
-          </Route>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
-          <PrivateRoute path="/top-artists" token={token}>
-            <TopArtistsPage />
-          </PrivateRoute>
-          <PrivateRoute path="/top-tracks" token={token}>
-            <TopTracksPage />
-          </PrivateRoute>
-          <PrivateRoute path="/recent" token={token}>
-            <RecentPage />
-          </PrivateRoute>
-        </Switch>
-      </Router>
-    </ProvideAuth>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Redirect to="/top-artists" />
+        </Route>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+        <PrivateRoute path="/top-artists" token={token}>
+          <TopArtistsPage />
+        </PrivateRoute>
+        <PrivateRoute path="/top-tracks" token={token}>
+          <TopTracksPage />
+        </PrivateRoute>
+        <PrivateRoute path="/recent" token={token}>
+          <RecentPage />
+        </PrivateRoute>
+      </Switch>
+    </Router>
   )
 }
 

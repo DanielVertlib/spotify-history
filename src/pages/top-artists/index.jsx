@@ -29,7 +29,7 @@ const TopArtistsPage = ({ artists, dispatch }) => {
       <Sidebar />
       <div className="artists-page">
         <div className="artists-header">
-          <img className="artists-image" src="/top-artists.jpg" />
+          <img className="artists-image" src="assets/top-artists.jpg" />
           <span className="artists-header__text">Top Artists</span>
         </div>
         {/* <div className="artists-page__divider" /> */}
