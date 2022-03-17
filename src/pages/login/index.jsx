@@ -4,7 +4,7 @@ import './index.scss'
 
 const clientId = 'f6fb11fc92c64dc491d0bd2b5473ae12'
 const authEndpoint = 'https://accounts.spotify.com/authorize'
-const redirectUri = 'http://localhost:3000'
+const redirectUri = 'http://spotifyist.netlify.app'
 const scopes = [
   'user-top-read',
   'user-read-private',
