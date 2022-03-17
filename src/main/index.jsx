@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import * as ApplicationActions from 'actions/application'
 
@@ -62,7 +62,7 @@ const App = ({ token, dispatch }) => {
       dispatch(ApplicationActions.setToken(hashToken))
       dispatch(ApplicationActions.init(hashToken))
     }
-  }, [])
+  }, [dispatch, token])
 
   return (
     <Router>

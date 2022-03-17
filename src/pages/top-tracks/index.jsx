@@ -30,7 +30,7 @@ const TopTracksPage = ({ tracks, dispatch }) => {
       <Sidebar />
       <div className="tracks-page">
         <div className="tracks-header">
-          <img className="tracks-image" src="assets/top-tracks.jpg" />
+          <img className="tracks-image" src="assets/top-tracks.jpg" alt="" />
           <span className="tracks-header__text">Top Tracks</span>
         </div>
         <div className="list">

@@ -1,10 +1,12 @@
 .login-page {
   height: 100vh;
   display: flex;
-  background-size: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
 
   .login-page__button {
-    top: 95%;
+    top: 80%;
     transform: translateY(-50%);
     position: absolute;
     margin-left: auto;
@@ -16,9 +18,9 @@
     border-color: #FFFFFF;
     border-radius: 50px;
     display: flex;
-    width: 400px;
+    width: 320px;
     align-items: center;
-    height: 80px;
+    height: 70px;
     cursor: pointer;
     display: flex;
     box-shadow: 0 12px 22px rgb(0 0 0 / 13%);
@@ -26,7 +28,7 @@
     .login-page__text {
       font-family: Rubik,sans-serif;
       text-align: center;
-      color: #a467a8;
+      color: #f8bbb8;
       font-weight: 700;
       font-size: 24px;
       margin: auto;
