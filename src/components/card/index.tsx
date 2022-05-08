@@ -1,6 +1,18 @@
+import React from 'react'
+
 import './index.scss'
 
-const Card = (props) => {
+interface Props {
+  index: number,
+  title: string,
+  subtitle: string,
+  image: string,
+  time: string,
+  href: string
+}
+
+const Card = (props : Props) => {
+  console.log(props)
     const { index, image, title, subtitle, time, href } = props
 
     return (
