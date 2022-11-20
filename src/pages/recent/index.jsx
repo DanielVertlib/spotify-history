@@ -11,7 +11,16 @@ import moment from 'moment'
 
 import './index.scss'
 
-const RecentPage = ({ recent, dispatch }) => {
+interface Recent {
+
+}
+
+interface Props {
+  recent: Recent,
+  dispatch: () => void
+}
+
+const RecentPage = ({ recent, dispatch } : Props) => {
   // let history = useHistory();
   // let location = useLocation();
   const getAlbumCover = (track) => {
