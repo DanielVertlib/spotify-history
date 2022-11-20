@@ -1,6 +1,17 @@
+import React from 'react'
+
 import './index.scss'
 
-const Card = (props) => {
+interface Props {
+  index: number,
+  title: string,
+  subtitle: string,
+  image: string,
+  time: string,
+  href: string
+}
+
+const Card = (props : Props) => {
     const { index, image, title, subtitle, time, href } = props
 
     return (
@@ -9,7 +20,7 @@ const Card = (props) => {
             <img className="card-image" src={image} alt="" />
             <div className="card-info">
                 <div className="card-title">{title}</div>
-                <div className="card-subtitle">{subtitle}</div>
+                <div className="card-subtitle" title={subtitle}>{subtitle}</div>
             </div>
             { time && <div className="card-time">{time}</div> }
         </a>
