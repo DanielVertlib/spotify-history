@@ -34,6 +34,7 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar">
+      <img className="sidebar-logo" src="logo.png" alt="" />
       {sidebarItems.map((item, index) =>
         <Link to={item.path} key={`sidebar-item-${index}`}
           className={`sidebar-item ${location.pathname === item.path ? 'is-selected' : ''}`}>

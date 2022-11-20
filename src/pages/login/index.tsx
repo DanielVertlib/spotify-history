@@ -24,7 +24,6 @@ const LoginPage = () => {
 
   return (
     <div className="login-page" style={{ backgroundImage: `url('assets/login.jpg')` }}>
-      {/* <div  /> */}
       <div className="login-page__button" onClick={login}>
         <span className="login-page__text">Sign In With Spotify</span>
       </div>
