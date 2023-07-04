@@ -30,7 +30,7 @@ const sidebarItems = [
 ]
 
 const Sidebar = () => {
-  const location = useLocation();
+  const location = useLocation()
 
   return (
     <div className="sidebar">

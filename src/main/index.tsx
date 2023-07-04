@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react'
 
+import { useAppDispatch, useAppSelector } from 'hooks'
+
+// Import Actions
 import * as ApplicationActions from 'actions/application'
 
-import { connect } from 'react-redux'
+// Import React, Redux Packages
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,22 +13,28 @@ import {
   Redirect
 } from "react-router-dom"
 
+// Import Pages
 import LoginPage from 'pages/login'
 import RecentPage from 'pages/recent'
 import TopArtistsPage from 'pages/top-artists'
 import TopTracksPage from 'pages/top-tracks'
 
-
+// Import SCSS
 import './index.scss'
 
-// App's client ID, redirect URI and desired scopes
+interface Hash {
+  [index: string] : string
+}
 
-
+interface PrivateProps {
+  path: string,
+  children?: React.ReactNode
+}
 
 const hash = window.location.hash
   .substring(1)
   .split('&')
-  .reduce((initial, param) => {
+  .reduce((initial : Hash, param) => {
     if(param) {
       const item = param.split('=')
       initial[item[0]] = decodeURIComponent(item[1])
@@ -35,12 +44,19 @@ const hash = window.location.hash
 
 window.location.hash = ''
 
-function PrivateRoute({ children, ...rest }) {
+const PrivateRoute = ({ children, ...rest } : PrivateProps) => {
+  const { loading, token } = useAppSelector(state => state.application)
+
+  if(loading) {
+    // console.log('loading')
+    return <div>Loading</div>
+  }
+
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        rest.token ? (
+        token ? (
           children
         ) : (
           <Redirect
@@ -55,12 +71,29 @@ function PrivateRoute({ children, ...rest }) {
   );
 }
 
-const App = ({ token, dispatch }) => {
+const App = () => {
+  const dispatch = useAppDispatch()
+  const token = useAppSelector(state => state.application.token)
+
   useEffect(() => {
+    // console.log('hash', hash)
     let hashToken = hash.access_token
+    const storedToken = localStorage.getItem('token')
+
+    if(!hashToken && storedToken) {
+      hashToken = storedToken
+      // console.log('get stored token')
+    }
+
     if(hashToken && !token) {
+      // console.log('init store with token')
       dispatch(ApplicationActions.setToken(hashToken))
       dispatch(ApplicationActions.init(hashToken))
+
+      if(!storedToken) {
+        localStorage.setItem('token', hashToken)
+        // console.log('set stored token')
+      }
     }
   }, [dispatch, token])
 
@@ -73,13 +106,13 @@ const App = ({ token, dispatch }) => {
         <Route path="/login">
           <LoginPage />
         </Route>
-        <PrivateRoute path="/top-artists" token={token}>
+        <PrivateRoute path="/top-artists">
           <TopArtistsPage />
         </PrivateRoute>
-        <PrivateRoute path="/top-tracks" token={token}>
+        <PrivateRoute path="/top-tracks">
           <TopTracksPage />
         </PrivateRoute>
-        <PrivateRoute path="/recent" token={token}>
+        <PrivateRoute path="/recent">
           <RecentPage />
         </PrivateRoute>
       </Switch>
@@ -88,6 +121,4 @@ const App = ({ token, dispatch }) => {
 }
 
 
-export default connect(state => ({
-  token: state.application.token
-}))(App)
+export default App

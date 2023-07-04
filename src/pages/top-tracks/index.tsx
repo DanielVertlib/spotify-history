@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
+
+import { useAppDispatch, useAppSelector } from 'hooks'
 
 import Sidebar from 'containers/sidebar'
 import PlaylistFooter from 'containers/playlist-footer'
@@ -9,20 +10,46 @@ import * as ApplicationActions from 'actions/application'
 
 import './index.scss'
 
-const TopTracksPage = ({ tracks, dispatch }) => {
-  const getAlbumCover = (album) => {
-    const cover = album.images.find(image => image.url).url
-    return cover
+interface Artist {
+  name: string
+}
+
+interface Image {
+  url: string
+}
+
+interface Album {
+  images: Image[]
+}
+
+interface Track {
+  name: string
+  images: Image[],
+  uri: string,
+  album: Album,
+  artists: Artist[]
+}
+
+
+const TopTracksPage = () => {
+  const getAlbumCover = (album : Album) => {
+    const cover = album.images.find(image => image.url)
+
+    if(cover) return cover.url
+
+    return ''
   } 
 
-  const getArtists = (artists) => {
-    const artistNames = []
+  const getArtists = (artists : Artist[]) => {
+    const artistNames: string[] = []
     artists.forEach(artist => {
       artistNames.push(artist.name)
     })
     return artistNames.join(', ')
   }
 
+  const dispatch = useAppDispatch()
+  const tracks : Track[] = useAppSelector((state) => state.application.tracks)
   const uris = tracks.map(track => track.uri)
 
   return (
@@ -54,6 +81,4 @@ const TopTracksPage = ({ tracks, dispatch }) => {
   )
 }
 
-export default connect(state => ({
-  tracks: state.application.tracks
-}))(TopTracksPage)
+export default TopTracksPage
