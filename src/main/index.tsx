@@ -37,12 +37,21 @@ const hash = window.location.hash
   .reduce((initial : Hash, param) => {
     if(param) {
       const item = param.split('=')
+      console.log('item', item)
       initial[item[0]] = decodeURIComponent(item[1])
     }
     return initial
   }, {})
 
 window.location.hash = ''
+
+const checkJwtExpired = (expiry : string) => {        
+  if (parseInt(expiry) * 1000 < new Date().getTime()) {
+    return true
+  }
+
+  return false
+}
 
 const PrivateRoute = ({ children, ...rest } : PrivateProps) => {
   const { loading, token } = useAppSelector(state => state.application)
@@ -78,11 +87,17 @@ const App = () => {
   useEffect(() => {
     // console.log('hash', hash)
     let hashToken = hash.access_token
+    const hashExpiry = hash.expires_in
     const storedToken = localStorage.getItem('token')
 
     if(!hashToken && storedToken) {
       hashToken = storedToken
       // console.log('get stored token')
+    }
+
+    if(checkJwtExpired(hashExpiry)) {
+      localStorage.clear()
+      return
     }
 
     if(hashToken && !token) {
