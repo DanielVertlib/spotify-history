@@ -45,7 +45,6 @@ function getTopArtists(fetchSettings, limit = 50, timeRange = 'long_term') {
       .then(res => res.json())
       .then(
         (result) => {
-          console.log(result)
           dispatch({
             type: constants.SET_TOP_ARTISTS,
             artists: result.items
@@ -85,7 +84,6 @@ export function getArtistsSongsUris(name) {
         if(index === 19) dispatch(createPlaylist(name, artistUris))
       })
     })
-   console.log('test', artistUris) 
   }
 }
 

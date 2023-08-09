@@ -1,29 +1,48 @@
 import React from 'react'
-import { connect } from 'react-redux'
+
+import { useAppDispatch, useAppSelector } from 'hooks'
 
 import Sidebar from 'containers/sidebar'
 import PlaylistFooter from 'containers/playlist-footer'
 import Card from 'components/card'
 
-import * as ApplicationActions from 'actions/application'
+import { getArtistsSongsUris } from 'actions/application'
 
 import './index.scss'
 
-const TopArtistsPage = ({ artists, dispatch }) => {
-  const getAlbumCover = (artist) => {
-    const cover = artist.images.find(image => image.url).url
-    return cover
+interface Image {
+  url: string
+}
+
+interface Artist {
+  name: string
+  images: Image[],
+  genres: string[],
+  uri: string
+}
+
+const TopArtistsPage = () => {
+  const dispatch = useAppDispatch()
+
+  const getAlbumCover = (artist : Artist) => {
+    const cover = artist.images.find(image => image.url)
+
+    if(cover) return cover.url
+
+    return ''
   } 
 
-  const getGenres = (artist) => {
+  const getGenres = (artist : Artist) => {
     const genres = artist.genres.slice(0, 5)
     return genres.join(', ')
   }
+
   const getTopArtistsUris = () => {
-    dispatch(ApplicationActions.getArtistsSongsUris('Top 20 Artists Playlist'))
-    // dispatch(ApplicationActions.createPlaylist('Top 50 Most Played Tracks', []))
+    dispatch(getArtistsSongsUris('Top 20 Artists Playlist'))
   }
-  console.log(artists)
+
+  const artists : Artist[] = useAppSelector((state) => state.application.artists)
+ 
   return (
     <div className="authenticated-page">
       <Sidebar />
@@ -32,7 +51,7 @@ const TopArtistsPage = ({ artists, dispatch }) => {
           <img className="artists-image" src="assets/top-artists.jpg" alt="" />
           <span className="artists-header__text">Top Artists</span>
         </div>
-        {/* <div className="artists-page__divider" /> */}
+
         <div className="list">
           {artists.map((artist, index) =>
             <Card
@@ -53,6 +72,4 @@ const TopArtistsPage = ({ artists, dispatch }) => {
   )
 }
 
-export default connect(state => ({
-  artists: state.application.artists
-}))(TopArtistsPage)
+export default TopArtistsPage

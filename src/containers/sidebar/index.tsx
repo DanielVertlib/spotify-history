@@ -3,7 +3,8 @@ import React from 'react';
 import { Link, useLocation } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faHeart, faClock } from '@fortawesome/free-regular-svg-icons'
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faStar, faHeart, faClock } from '@fortawesome/free-solid-svg-icons'
 
 import './index.scss'
 
@@ -29,14 +30,15 @@ const sidebarItems = [
 ]
 
 const Sidebar = () => {
-  const location = useLocation();
+  const location = useLocation()
 
   return (
     <div className="sidebar">
+      <img className="sidebar-logo" src="logo.png" alt="" />
       {sidebarItems.map((item, index) =>
         <Link to={item.path} key={`sidebar-item-${index}`}
           className={`sidebar-item ${location.pathname === item.path ? 'is-selected' : ''}`}>
-          <FontAwesomeIcon className="sidebar-item__icon" icon={item.icon} />
+          <FontAwesomeIcon className="sidebar-item__icon" icon={item.icon as IconProp} />
           <div className="sidebar-item__text">
             {item.text}
           </div>
