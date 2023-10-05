@@ -37,7 +37,6 @@ const hash = window.location.hash
   .reduce((initial : Hash, param) => {
     if(param) {
       const item = param.split('=')
-      console.log('item', item)
       initial[item[0]] = decodeURIComponent(item[1])
     }
     return initial
@@ -45,19 +44,10 @@ const hash = window.location.hash
 
 window.location.hash = ''
 
-const checkJwtExpired = (expiry : string) => {        
-  if (parseInt(expiry) * 1000 < new Date().getTime()) {
-    return true
-  }
-
-  return false
-}
-
 const PrivateRoute = ({ children, ...rest } : PrivateProps) => {
   const { loading, token } = useAppSelector(state => state.application)
 
   if(loading) {
-    // console.log('loading')
     return <div>Loading</div>
   }
 
@@ -85,30 +75,11 @@ const App = () => {
   const token = useAppSelector(state => state.application.token)
 
   useEffect(() => {
-    // console.log('hash', hash)
     let hashToken = hash.access_token
-    const hashExpiry = hash.expires_in
-    const storedToken = localStorage.getItem('token')
-
-    if(!hashToken && storedToken) {
-      hashToken = storedToken
-      // console.log('get stored token')
-    }
-
-    if(checkJwtExpired(hashExpiry)) {
-      localStorage.clear()
-      return
-    }
 
     if(hashToken && !token) {
-      // console.log('init store with token')
       dispatch(ApplicationActions.setToken(hashToken))
       dispatch(ApplicationActions.init(hashToken))
-
-      if(!storedToken) {
-        localStorage.setItem('token', hashToken)
-        // console.log('set stored token')
-      }
     }
   }, [dispatch, token])
 

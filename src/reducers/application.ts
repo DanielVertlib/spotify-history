@@ -17,6 +17,10 @@ export default function application(state = initialState, action : any) {
         token: action.token,
         loading: false
       })
+    case constants.SET_LOADING:
+      return Object.assign({}, state, {
+        loading: false
+      })
     case constants.GET_USER:
       return Object.assign({}, state, {
         user: action.user
