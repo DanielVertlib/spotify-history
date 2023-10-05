@@ -1,5 +1,6 @@
 import React from 'react'
-import { connect } from 'react-redux'
+
+import { useAppDispatch, useAppSelector } from 'hooks'
 
 import Sidebar from 'containers/sidebar'
 import PlaylistFooter from 'containers/playlist-footer'
@@ -11,25 +12,53 @@ import moment from 'moment'
 
 import './index.scss'
 
-const RecentPage = ({ recent, dispatch }) => {
-  // let history = useHistory();
-  // let location = useLocation();
-  const getAlbumCover = (track) => {
-    const cover = track.album.images.find(image => image.url).url
-    return cover
+interface Image {
+  url: string
+}
+
+interface Album {
+  images: Image[]
+}
+
+interface Artist {
+  name: string
+}
+
+interface Track {
+  uri: string,
+  name: string,
+  artists: Artist[],
+  album: Album
+}
+
+interface Recent {
+  track: Track,
+  played_at: string,
+}
+
+const RecentPage = () => {
+  const getAlbumCover = (track : Track) => {
+    const cover = track.album.images.find(image => image.url)
+
+    if(cover) return cover.url
+
+    return ''
   } 
 
-  const getArtists = (artists) => {
-    const artistNames = []
+  const getArtists = (artists : Artist[]) => {
+    const artistNames: string[] = []
     artists.forEach(artist => {
       artistNames.push(artist.name)
     })
     return artistNames.join(', ')
   }
 
-  const getTimePlayed = (time) => {
+  const getTimePlayed = (time : string) => {
     return moment.utc(time).format("ddd hh:mm A")
   }
+
+  const dispatch = useAppDispatch()
+  const recent : Recent[] = useAppSelector((state) => state.application.recent)
   
   const uris = recent.map(recent => recent.track.uri)
   return (
@@ -40,7 +69,7 @@ const RecentPage = ({ recent, dispatch }) => {
           <img className="recent-image" src="assets/recent-music.jpg" alt="" />
           <span className="recent-header__text">Recently Played</span>
         </div>
-        {/* <div className="recent-page__divider" /> */}
+
         <div className="list">
           {recent.map((recent, index) =>
             <Card
@@ -62,6 +91,4 @@ const RecentPage = ({ recent, dispatch }) => {
   )
 }
 
-export default connect(state => ({
-  recent: state.application.recent
-}))(RecentPage)
+export default RecentPage

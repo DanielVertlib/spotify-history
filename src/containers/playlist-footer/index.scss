@@ -4,7 +4,6 @@
   height: 100px;
   background-color: #FFFFFF;
   font-family: Rubik,sans-serif;
-  position: fixed;
   width: 1000px;
   bottom: 0;
 
@@ -14,6 +13,7 @@
     border-radius: 50px;
     display: flex;
     width: 200px;
+    min-width: 50px;
     align-items: center;
     height: 50px;
     margin: auto;
@@ -23,6 +23,12 @@
     &:hover {
       background-color: #494364;
       border-color: #494364;
+    }
+
+    .playlist-button__icon {
+      color: #FFFFFF;
+      font-size: 20px;
+      display: none;
     }
 
     .playlist-button__text {
@@ -45,6 +51,32 @@
     }
     .playlist-subtitle {
       margin-bottom: auto;
+    }
+  }
+}
+
+@media only screen and (min-width: 1120px) {
+  .playlist-footer {
+    position: fixed;
+  }
+}
+
+@media only screen and (max-width: 1120px) {
+  .playlist-footer {
+    margin-bottom: 47px;
+    width: 100%;
+
+    .playlist-button {
+      width: 50px;
+
+      .playlist-button__icon {
+        display: block;
+        margin: auto;
+      }
+
+      .playlist-button__text {
+        display: none;
+      }
     }
   }
 }

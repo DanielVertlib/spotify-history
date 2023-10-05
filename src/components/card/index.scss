@@ -18,38 +18,39 @@
 }
 
 .card-index {
-    flex: 35px 0;
-    margin: auto 16px auto 0;
-    text-align: center;
-    color: #aba5c3;
-    font-size: 14px;
-    font-family: "Rubik", sans-serif;
+  flex: 35px 0;
+  margin: auto 16px auto 0;
+  text-align: center;
+  color: #aba5c3;
+  font-size: 14px;
+  font-family: "Rubik", sans-serif;
 }
 
 .card-image {
-    border-radius: 5px;
-    height: 60px;
-    width: 62px;
-    min-width: 62px;
+  align-self: center;
+  border-radius: 5px;
+  height: 60px;
+  width: 62px;
+  min-width: 62px;
 }
 
 .card-info {
-    width: 100%;
-    margin: auto 0 auto 1em;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  margin: auto 16px auto 1em;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-title {
-    color: #50496d;
-    font-weight: 500;
-    font-size: 16px;
-    margin-bottom: 8px;
+  color: #50496d;
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 8px;
 }
 
 .card-subtitle {
-    color: #aba5c3;
-    text-transform: capitalize;
+  color: #aba5c3;
+  text-transform: capitalize;
 }
 
 .card-time {
