@@ -14,10 +14,14 @@ export function init(token) {
       headers: { 'Authorization': `Bearer ${token}` }
     }
 
-    dispatch(getUser(fetchSettings))
-    dispatch(getTopArtists(fetchSettings))
-    dispatch(getTopTracks(fetchSettings))
-    dispatch(getRecentTracks(fetchSettings))
+    Promise.all([
+      dispatch(getUser(fetchSettings)),
+      dispatch(getTopArtists(fetchSettings)),
+      dispatch(getTopTracks(fetchSettings)),
+      dispatch(getRecentTracks(fetchSettings))
+    ]).then(() => {
+      dispatch({ type: constants.SET_LOADED })
+    })
   }
 }
 

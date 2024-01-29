@@ -46,12 +46,13 @@ window.location.hash = ''
 
 const PrivateRoute = ({ children, ...rest } : PrivateProps) => {
   const { token } = useAppSelector(state => state.application)
+  const localToken = JSON.parse(localStorage.getItem('token') || 'null')
 
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        token ? (
+        token || localToken ? (
           children
         ) : (
           <Redirect
@@ -71,11 +72,22 @@ const App = () => {
   const token = useAppSelector(state => state.application.token)
 
   useEffect(() => {
-    let hashToken = hash.access_token
+    // Get token from hash and parse local storage token
+    const hashToken = hash.access_token
+    const localToken = JSON.parse(localStorage.getItem('token') || 'null')
 
-    if(hashToken && !token) {
-      dispatch(ApplicationActions.setToken(hashToken))
-      dispatch(ApplicationActions.init(hashToken))
+    // If token doesnt exist in global state, set it
+    if(!token) {
+      const tokenType = hashToken ? hashToken : localToken
+
+      // Set token in global state and initialize spotify api data
+      dispatch(ApplicationActions.setToken(tokenType))
+      dispatch(ApplicationActions.init(tokenType))
+
+      // Set token in local storage if it doesnt exist
+      if(!localToken || localToken === null) {
+        localStorage.setItem('token', JSON.stringify(tokenType))
+      }
     }
   }, [dispatch, token])
 

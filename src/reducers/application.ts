@@ -6,7 +6,7 @@ const initialState = {
   recent: [],
   token: null,
   user: null,
-  loading: true
+  loaded: false
 }
 
 export default function application(state = initialState, action : any) {
@@ -15,11 +15,11 @@ export default function application(state = initialState, action : any) {
     case constants.SET_TOKEN:
       return Object.assign({}, state, {
         token: action.token,
-        loading: false
+        loaded: false
       })
-    case constants.SET_LOADING:
+    case constants.SET_LOADED:
       return Object.assign({}, state, {
-        loading: false
+        loaded: true
       })
     case constants.GET_USER:
       return Object.assign({}, state, {

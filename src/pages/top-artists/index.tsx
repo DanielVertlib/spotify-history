@@ -42,7 +42,7 @@ const TopArtistsPage = () => {
   }
 
   const artists : Artist[] = useAppSelector((state) => state.application.artists)
- 
+
   return (
     <div className="authenticated-page">
       <Sidebar />
